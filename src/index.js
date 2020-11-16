@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { compose, createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import createSagaMiddleWare from 'redux-saga'
 
 import './index.css';
 import App from './App';
@@ -11,16 +12,22 @@ import reportWebVitals from './reportWebVitals';
 
 import { rootReducer } from './redux/rootReducer';
 import { spamWordsMiddleware } from './redux/middleware';
+import { sagaWatcher } from './redux/sagas';
+
+const saga = createSagaMiddleWare()
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(rootReducer, composeEnhancers(
   applyMiddleware(
     thunk,
-    spamWordsMiddleware
+    spamWordsMiddleware,
+    saga
   ),
   
 ));
+
+saga.run(sagaWatcher)
 
 
 ReactDOM.render(
