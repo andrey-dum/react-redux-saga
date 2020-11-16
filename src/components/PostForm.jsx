@@ -73,7 +73,7 @@ export default class PostForm extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.submitHandler} >
+            <form onSubmit={this.submitHandler} className="mb-3" >
                 <h1>POST FORM</h1>
                 <div className="form-group">
                     <label htmlFor="title">Post Title</label>

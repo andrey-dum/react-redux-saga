@@ -1,7 +1,9 @@
+
 import './index.css'
 import PostForm from './components/PostForm';
 import Posts from './components/Posts';
 import FetchedPosts from './components/FetchedPosts';
+
 
 function App() {
   return (
