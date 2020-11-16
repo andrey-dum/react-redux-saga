@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { connect } from 'react-redux';
-import { createPost } from '../redux/actions';
+import { createPost, showAlert } from '../redux/actions';
+import Alert from './Alert';
 
 // const PostForm = () => {
 //     const [title, setTitle] = useState('')
@@ -57,7 +58,7 @@ class PostForm extends React.Component {
         const {title} = this.state;
 
         if (!title.trim()) {
-            return
+           return this.props.showAlert('Введите название!');
         }
 
         const newPost = {
@@ -65,7 +66,6 @@ class PostForm extends React.Component {
             id: Date.now().toString()
         }
 
-        console.log(newPost)
         this.props.createPost(newPost)
 
         this.setState({title: ''})
@@ -82,6 +82,7 @@ class PostForm extends React.Component {
         return (
             <form onSubmit={this.submitHandler} className="mb-5" >
                 <h1 className="mb-3">POST FORM</h1>
+                { this.props.alert && <Alert text={this.props.alert} /> }
                 <div className="form-group">
                     <label htmlFor="title">Post Title</label>
                     <input 
@@ -99,9 +100,13 @@ class PostForm extends React.Component {
     }
 }
 
+const mapStateToProps = state => ({
+    alert: state.app.alert
+})
 
 const mapDispatchToProps = {
-    createPost
+    createPost,
+    showAlert
 }
 
-export default connect(null, mapDispatchToProps)(PostForm)
+export default connect(mapStateToProps, mapDispatchToProps)(PostForm)

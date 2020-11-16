@@ -1,11 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 import Post from './Post';
 
-const FetchedPosts = ({posts}) => {
-    if (!posts.length) {
-        return <button className="btn btn-primary">Загрузить</button>
+import { fetchPosts } from '../redux/actions';
+
+import Loader from './Loader';
+
+const FetchedPosts = () => {
+    const dispatch = useDispatch()
+    const fetchedPosts = useSelector(state => state.postsPage.fetchedPosts)
+    const loading = useSelector(state => state.app.loading)
+
+    // useEffect(() => {
+    //     dispatch(fetchPosts());
+    // }, [dispatch, fetchedPosts]);
+
+    const hendleFetchPosts = () => {
+        dispatch(fetchPosts())
     }
-    return posts.map(post => <Post key={post} post={post} /> );
+
+    if (loading) {
+        return (
+            <Loader />
+        )
+    }
+
+
+    if (!fetchedPosts.length) {
+        return <button onClick={hendleFetchPosts} className="btn btn-primary">Загрузить</button>
+    }
+    return fetchedPosts.map(post => <Post key={post.id} post={post} /> );
 }
 
 export default FetchedPosts;
