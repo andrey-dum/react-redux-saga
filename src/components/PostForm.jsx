@@ -92,9 +92,13 @@ class PostForm extends React.Component {
                         className="form-control" 
                         id="title" 
                         name="title"
-                        placeholder="Post Title" />
+                        placeholder="Спам слова(fuck, spam, php)" />
                 </div>
-                <button className="btn btn-success" type="submit">Создать</button>
+                <button
+                    className="btn btn-success" 
+                    type="submit"
+                >Создать</button>
+
             </form>
         );
     }

@@ -10,12 +10,14 @@ import reportWebVitals from './reportWebVitals';
 
 
 import { rootReducer } from './redux/rootReducer';
+import { spamWordsMiddleware } from './redux/middleware';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(rootReducer, composeEnhancers(
   applyMiddleware(
-    thunk
+    thunk,
+    spamWordsMiddleware
   ),
   
 ));
