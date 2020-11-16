@@ -1,15 +1,21 @@
 import React from 'react';
-import { useSelector } from 'react-redux'
+import { useSelector, connect } from 'react-redux'
 import Post from './Post';
 
-const Posts = ({posts}) => {
-    const items = useSelector(state => state.posts)
-    console.log(items)
+const Posts = ({syncPosts}) => {
+    // const posts = useSelector(state => state.postsPage.posts)
+    console.log(syncPosts)
 
-    if (!posts.length) {
+    if (!syncPosts.length) {
         return <p>Постов нет</p>
     }
-    return posts.map(post => <Post key={post.title} post={post} /> );
+    return syncPosts.map(post => <Post key={post.id} post={post} /> );
 }
 
-export default Posts;
+const mapStateToProps = state => {
+    return {
+        syncPosts: state.postsPage.posts
+    }
+}
+
+export default connect(mapStateToProps, null)(Posts);

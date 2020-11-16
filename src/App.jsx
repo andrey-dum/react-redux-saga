@@ -18,7 +18,7 @@ function App() {
       <div className="row">
         <div className="col">
           <h2>Синхронные посты</h2>
-          <Posts posts={[{title: '1111'}, {title: '222'}, {title: '333'}]} />
+          <Posts />
         </div>
         <div className="col">
           <h2>Асинхронные посты</h2>

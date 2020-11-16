@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import { connect } from 'react-redux';
+import { createPost } from '../redux/actions';
 
 // const PostForm = () => {
 //     const [title, setTitle] = useState('')
@@ -40,7 +42,7 @@ import React, {useState} from 'react';
 // export default PostForm;
 
 
-export default class PostForm extends React.Component {
+class PostForm extends React.Component {
    constructor(props) {
        super(props)
 
@@ -54,14 +56,19 @@ export default class PostForm extends React.Component {
 
         const {title} = this.state;
 
+        if (!title.trim()) {
+            return
+        }
+
         const newPost = {
             title,
             id: Date.now().toString()
         }
 
         console.log(newPost)
+        this.props.createPost(newPost)
+
         this.setState({title: ''})
-        
     }
 
     changeInputHandler = (e) => {
@@ -73,8 +80,8 @@ export default class PostForm extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.submitHandler} className="mb-3" >
-                <h1>POST FORM</h1>
+            <form onSubmit={this.submitHandler} className="mb-5" >
+                <h1 className="mb-3">POST FORM</h1>
                 <div className="form-group">
                     <label htmlFor="title">Post Title</label>
                     <input 
@@ -93,3 +100,8 @@ export default class PostForm extends React.Component {
 }
 
 
+const mapDispatchToProps = {
+    createPost
+}
+
+export default connect(null, mapDispatchToProps)(PostForm)

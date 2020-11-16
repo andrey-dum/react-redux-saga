@@ -4,5 +4,5 @@ import { postReducer} from  './postReducer';
 
 
 export const rootReducer = combineReducers({
-    posts: postReducer
+    postsPage: postReducer
 });
